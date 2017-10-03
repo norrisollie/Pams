@@ -123,15 +123,15 @@ function app() {
     }
 
     // if user scroll position is equal to or greater than the top of the about section
-    if(scrollPositionTop >= aboutSectionPosition.top - headerElementHeight) {
+    if(scrollPositionTop >= aboutSectionPosition.top) {
       // add/remove respective classes
       headerElement.classList.add("about-header");
       headerElement.classList.remove("menu-header");
       headerElement.classList.remove("findus-header");
     }
-
-    // if user scroll position is equal to or greater than the top of menu section
-    if(scrollPositionTop >= menuSectionPosition.top - headerElementHeight) {
+    //
+    // // if user scroll position is equal to or greater than the top of menu section
+    if(scrollPositionTop >= menuSectionPosition.top) {
       // add/remove respective classes
       headerElement.classList.remove("about-header");
       headerElement.classList.add("menu-header");
@@ -139,7 +139,7 @@ function app() {
     }
 
     // if user scroll position is equal to or greater than the top of findus section
-    if(scrollPositionTop >= findusSectionPosition.top - headerElementHeight) {
+    if(scrollPositionTop >= findusSectionPosition.top) {
       // add/remove respective classes
       headerElement.classList.remove("about-header");
       headerElement.classList.remove("menu-header");
