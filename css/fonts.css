@@ -23,3 +23,15 @@
     src: url(../assets/fonts/graphik-semibold.woff);
     font-weight: 600;
 }
+
+@font-face {
+    font-family: "PhosphateFontInline";
+    src: url(../assets/fonts/phosphate-inline.ttf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "PhosphateFontSolid";
+    src: url(../assets/fonts/phosphate-solid.ttf);
+    font-weight: 400;
+}

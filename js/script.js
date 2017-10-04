@@ -1,365 +1,147 @@
-// contains all code, to run on load
+// scripts
+// run function on window load to prevent unwanted behaviour
 function app() {
 
-  // declare variable for the jumbotron section text
-  var jumbotronSectionText = document.querySelector(".jumbotron-title");
+// declare variable for buttons required to toggle menu
+var menuButtons = document.querySelectorAll(".toggle-menu-button");
 
-  // remove hidden class to show text
-  jumbotronSectionText.classList.remove("title-hidden");
+// loop through buttons and add an click even listener
+for(var menuButton of menuButtons) {
+  // add event listener
+  menuButton.addEventListener("click", toggleMenu, false);
 
-  // declare menuButtons variable
-  var menuButtons = document.querySelectorAll(".menu-buttons");
+}
 
-  // loop and add event listener to menu buttons
-  for(var menuButton of menuButtons) {
+// function to toggle menu
+  function toggleMenu(event) {
 
-    // event listener
-    menuButton.addEventListener("click", buttonClick, false);
-  }
+    // variable to retrieve the value in the action dataset
+    var targetAction = event.currentTarget.dataset.action;
 
-  // function to run when menu button is clicked
-  function buttonClick(event) {
+    // declare variable for menu wrapper
+    var menuWrapper = document.querySelector(".menu-wrapper");
+    var contentContainer = document.querySelector(".content-container");
+    var header = document.querySelector(".header");
 
-    // declare variable for the menu element
-    var navigationMenu = document.getElementById("navigation-menu-mobile");
+    // switch statement to run code depending on action button value
+    switch(targetAction) {
 
-    // get the target action dataeset value from element on click
-    var targetMenuAction = event.currentTarget.dataset.menuaction;
-
-    // log target action to console
-    console.log(targetMenuAction);
-
-    // switch statement to determine what action has been clicked
-    switch(targetMenuAction) {
-
-      // if action is open
+      // if open
       case "open":
-      // add active class and remove hidden class
-      navigationMenu.classList.remove("menu-hidden");
-      navigationMenu.classList.add("menu-active");
+
+      // add active classes to menuWrapper, contentContainer and header elements
+      menuWrapper.classList.remove("menu-hidden");
+      menuWrapper.classList.add("menu-active");
+      contentContainer.classList.remove("content-hidden");
+      contentContainer.classList.add("content-active");
+      header.classList.remove("header-hidden");
+      header.classList.add("header-active");
       break;
 
-      // if action is close
+      // if close
       case "close":
-      // remove active class and add hidden class
-      navigationMenu.classList.add("menu-hidden");
-      navigationMenu.classList.remove("menu-active");
+      // add hidden classes to menuWrapper, contentContainer and header elements
+      menuWrapper.classList.remove("menu-active");
+      menuWrapper.classList.add("menu-hidden");
+      contentContainer.classList.remove("content-active");
+      contentContainer.classList.add("content-hidden");
+      header.classList.remove("header-active");
+      header.classList.add("header-hidden");
       break;
     }
   }
 
-  // add scroll event to change header size
+  // shrinking the header
+
+  // add event listener to windows scroll event
   window.addEventListener("scroll", shrinkHeader, false);
 
-  // function to shrink the header size
-  function shrinkHeader() {
+  // function to run on shrink event
+  function shrinkHeader(event) {
 
-    // declare variables to retrieve scroll position and window height
-    var scrollPositionTop = window.scrollY;
-    var windowHeight = window.innerHeight;
+    // declare variable for the header and section-hero elements
+    var header = document.querySelector(".header");
+    var sectionHero = document.querySelector(".section-hero");
 
-    // declare variable for header and logo
-    var headerElement = document.querySelector("header");
-    var logoImageElement = document.querySelector(".logo-image");
+    // retrieve the number of pixels scrolled
+    var scrollPosition = window.scrollY;
 
-    // if statement to check if scroll position is greater than window height
-    if(scrollPositionTop > windowHeight) {
+    // retrieve height of section-hero
+    var headerHeight = header.offsetHeight;
 
-      // log to console
-      console.log("more than window height");
+    // retrieve height of section-hero
+    var sectionHeroHeight = sectionHero.offsetHeight;
 
-      // add class to shrink respective elements
-      headerElement.classList.add("header-shrink");
-      logoImageElement.classList.add("logo-image-shrink");
+    // declare variable of logo image
+    var logo = document.querySelector(".logo");
 
-    } else if (scrollPositionTop < windowHeight) {
+    // if statement to determine whether scroll height is greater than the height of the section-hero element
+    if(scrollPosition > sectionHeroHeight - headerHeight) {
 
-      // log to console
-      console.log("less than window height");
+      // add shrink class
+      logo.classList.add("logo-shrink");
 
-      // remove class to unshrink respective elements
-      headerElement.classList.remove("header-shrink");
-      logoImageElement.classList.remove("logo-image-shrink");
+    } else if (scrollPosition < sectionHeroHeight) {
+
+      // remove shrink class
+      logo.classList.remove("logo-shrink");
+
     }
   }
 
-  // declare variables for each section
-  var homeSection = document.querySelector(".home-section");
-  var aboutSection = document.querySelector(".about-section");
-  var menuSection = document.querySelector(".menu-section");
-  var findusSection = document.querySelector(".findus-section");
-
-  // declare variables to retrieve position of elements on page
-  var homeSectionPosition = homeSection.getBoundingClientRect();
-  var aboutSectionPosition = aboutSection.getBoundingClientRect();
-  var menuSectionPosition = menuSection.getBoundingClientRect();
-  var findusSectionPosition = findusSection.getBoundingClientRect();
-
-  // add another event listener to change colour of header background depending on section scrolled
+  // add event listener to windows scroll event
   window.addEventListener("scroll", changeHeaderColour, false);
 
-  // function to change header colour
+  // function to
   function changeHeaderColour(event) {
 
-    // declare variable for header element
-    var headerElement = document.querySelector("header");
-    // get height of headerElement
-    var headerElementHeight = headerElement.offsetHeight;
+    // retrieve scroll position
+    var scrollPosition = window.scrollY;
 
-    console.log("headerElementHeight: " + headerElementHeight)
+    // declare elements
+    var header = document.querySelector(".header");
+    var sectionHero = document.querySelector(".section-hero");
+    var sectionOne = document.querySelector(".section-1");
+    var sectionTwo = document.querySelector(".section-2");
+    var sectionThree = document.querySelector(".section-3");
 
-    // declare variables to retrieve scroll position and window height
-    var scrollPositionTop = window.scrollY;
-    var windowHeight = window.innerHeight;
+    // retrieve height of elements
+    var headerHeight = header.offsetHeight;
+    var sectionHeroHeight = sectionHero.offsetHeight;
+    var sectionOneHeight = sectionOne.offsetHeight;
+    var sectionTwoHeight = sectionTwo.offsetHeight;
+    var sectionThreeHeight = sectionThree.offsetHeight;
 
-    // if statements to determine whether user has scrolled past top of each section
+    // if scroll position is greater than or equal to section hero height minus header height
+    if(scrollPosition >= sectionHeroHeight - headerHeight) {
 
-    // if user scroll position is equal to or greater than the top of findus section
-    if(scrollPositionTop >= homeSectionPosition.top) {
-      // add/remove respective classes
-      headerElement.classList.remove("about-header");
-      headerElement.classList.remove("menu-header");
-      headerElement.classList.remove("findus-header");
+      // add class
+      header.classList.add("section-1-background");
+      header.classList.remove("section-2-background");
+      header.classList.remove("section-3-background");
+    } else {
+      header.classList.remove("section-1-background");
     }
 
-    // if user scroll position is equal to or greater than the top of the about section
-    if(scrollPositionTop >= aboutSectionPosition.top) {
-      // add/remove respective classes
-      headerElement.classList.add("about-header");
-      headerElement.classList.remove("menu-header");
-      headerElement.classList.remove("findus-header");
-    }
-    //
-    // // if user scroll position is equal to or greater than the top of menu section
-    if(scrollPositionTop >= menuSectionPosition.top) {
-      // add/remove respective classes
-      headerElement.classList.remove("about-header");
-      headerElement.classList.add("menu-header");
-      headerElement.classList.remove("findus-header");
+    if(scrollPosition >= sectionHeroHeight + sectionOneHeight - headerHeight) {
+
+      header.classList.add("section-2-background");
+      header.classList.remove("section-1-background");
+      header.classList.remove("section-3-background");
     }
 
-    // if user scroll position is equal to or greater than the top of findus section
-    if(scrollPositionTop >= findusSectionPosition.top) {
-      // add/remove respective classes
-      headerElement.classList.remove("about-header");
-      headerElement.classList.remove("menu-header");
-      headerElement.classList.add("findus-header");
+   if(scrollPosition >= sectionHeroHeight + sectionOneHeight + sectionTwoHeight - headerHeight) {
+
+      header.classList.add("section-3-background");
+      header.classList.remove("section-1-background");
+      header.classList.remove("section-2-background");
+
     }
+
+
+
   }
 
-  // add another event listener to show the text on scroll
-  window.addEventListener("scroll", showText, false);
-
-  function showText(event) {
-
-    // declare variables to retrieve scroll position and window height
-    var scrollPositionTop = window.scrollY;
-
-    // declare variables for the header element and text elements in each section
-    var headerElement = document.querySelector("header");
-    var jumbotronSectionText = document.querySelector(".jumbotron-title");
-    var aboutSectionText = document.querySelector(".about-section-text");
-    var menuSectionText = document.querySelector(".menu-section-text");
-    var findusSectionText = document.querySelector(".findus-section-text");
-
-    // about section text
-    if (scrollPositionTop > aboutSectionPosition.top - 300) {
-
-      // remove hidden class to show text
-      aboutSectionText.classList.remove("text-left-hidden");
-    }
-
-    // menu section text
-    if (scrollPositionTop > menuSectionPosition.top - 300) {
-      // remove hidden class to show text
-      menuSectionText.classList.remove("text-right-hidden");
-    }
-
-    // findus section text
-    if (scrollPositionTop > findusSectionPosition.top - 300) {
-      // remove hidden class to show text
-      findusSectionText.classList.remove("text-left-hidden");
-    }
-  }
 }
 
 window.onload = app();
-
-
-
-
-
-// function app() {
-//
-//   var d = document;
-//
-//   // declare menuButtons variable
-//   var menuButtons = document.querySelectorAll(".menu-buttons");
-//
-//   // loop through buttons and attach event listener to menu buttons
-//   for(var menuButton of menuButtons) {
-//     menuButton.addEventListener("click", menuClick, false);
-//   }
-//
-//   // function runs when a menu button is click
-//   function menuClick(e) {
-//
-//     // get dataset value to determine whether open or close has been clicked
-//     var targetDataset = e.target.dataset.menuaction;
-//
-//     // log to console
-//     console.log(targetDataset);
-//
-//     var navigationMenu = document.getElementById("navigation-menu-mobile")
-//
-//     // switch statement to determine whether to open or close menu
-//     switch(targetDataset) {
-//
-//       // if open
-//       case "open":
-//       // remove hidden class and replace with active class
-//       navigationMenu.classList.remove("menu-hidden");
-//       navigationMenu.classList.add("menu-active");
-//         break;
-//
-//       // if close
-//       case "close":
-//       // remove active class and replace with hidden class
-//       navigationMenu.classList.add("menu-hidden");
-//       navigationMenu.classList.remove("menu-active");
-//         break;
-//     }
-//
-//   }
-//
-//   for(menuButton of menuButtons) {
-//
-//     menuButton.addEventListener("scroll", scrollDown);
-//
-//   }
-//
-//
-//   window.addEventListener("scroll", changeHeaderSize, false);
-//
-//   function changeHeaderSize(event) {
-//
-//     // store header and logo image elements in DOM
-//     var header = document.querySelector("header");
-//     var logo = document.querySelector(".logo-image");
-//
-//     // retrieve the scrollY (position from top) position value and innerHeight value
-//     var scrollPosTop = window.scrollY;
-//     var windowHeight = window.innerHeight;
-//
-//     // if statement to check if scroll position is greater than window height
-//     if(scrollPosTop > windowHeight) {
-//       // add header-shrink class to header element
-//       header.classList.add("header-shrink");
-//       // add .logo-image class to the logo to change size
-//       logo.classList.add("logo-image-shrink");
-//
-//       // if statement to check if scroll position is less than window height value
-//     } else if (scrollPosTop < windowHeight) {
-//       // remove header-shrink class to header element
-//       header.classList.remove("header-shrink");
-//       // remove .logo-image class to the logo to change size
-//       logo.classList.remove("logo-image-shrink");
-//     }
-//   }
-//
-  // var homeSection = document.querySelector(".home-section");
-  // var aboutSection = document.querySelector(".about-section");
-  // var menuSection = document.querySelector(".menu-section");
-  // var findusSection = document.querySelector(".findus-section");
-//
-//   var homeSectionPos = homeSection.getBoundingClientRect();
-//   var aboutSectionPos = aboutSection.getBoundingClientRect();
-//   var menuSectionPos = menuSection.getBoundingClientRect();
-//   var findusSectionPos = findusSection.getBoundingClientRect();
-//
-//   console.log(homeSectionPos.top);
-//   console.log(aboutSectionPos.top);
-//   console.log(menuSectionPos.top);
-//   console.log(findusSectionPos.top);
-//
-  // window.addEventListener("scroll", showText, false);
-  //
-  // function showText(event) {
-  //
-  //   var scrollPosTop = window.scrollY;
-  //   var header = document.querySelector("header");
-  //
-  //   var aboutSectionText = document.querySelector(".about-section-text");
-  //   var menuSectionText = document.querySelector(".menu-section-text");
-  //   var findusSectionText = document.querySelector(".findus-section-text");
-  //
-  //   if (scrollPosTop > aboutSectionPos.top - 300) {
-  //
-  //     aboutSectionText.classList.remove("text-left-hidden");
-  //
-  //   }
-  //
-  //   if (scrollPosTop > menuSectionPos.top - 300) {
-  //
-  //     menuSectionText.classList.remove("text-right-hidden");
-  //
-  //   }
-  //
-  //   if (scrollPosTop > findusSectionPos.top - 300) {
-  //
-  //     findusSectionText.classList.remove("text-left-hidden");
-  //   }
-  //
-  // }
-//
-//   window.addEventListener("scroll", changeHeaderColour, false);
-//
-//   function changeHeaderColour(event) {
-//
-//     var scrollPosTop = window.scrollY;
-//     var header = document.querySelector("header");
-//
-//     if(scrollPosTop >= homeSectionPos.top ) {
-//       header.classList.remove("about-header");
-//       header.classList.remove("menu-header");
-//       header.classList.remove("findus-header");
-//     }
-//
-    // if(scrollPosTop >= aboutSectionPos.top) {
-    //   header.classList.add("about-header");
-    //   header.classList.remove("menu-header");
-    //   header.classList.remove("findus-header");
-    //
-    // }
-//
-//     if (scrollPosTop >= menuSectionPos.top) {
-//       header.classList.add("menu-header");
-//       header.classList.remove("findus-header");
-//       header.classList.remove("about-header");
-//
-//
-//     }
-//
-//     if (scrollPosTop >= findusSectionPos.top) {
-//       header.classList.add("findus-header");
-//       header.classList.remove("about-header");
-//       header.classList.remove("menu-header");
-//
-//     }
-//
-//   }
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// }
-//
-// window.onload = app();
