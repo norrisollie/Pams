@@ -75,6 +75,7 @@ body {
 	background-position: center;
 	background-repeat: repeat;
 	background-size: 250px;
+	padding: 50px;
 }
 
 .section-hero-container {
@@ -353,6 +354,8 @@ h1,h2,h3,h4,h5,h6,p {
 	height: 35px;
 	background-size: 35px;
 	margin: 5px;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .menu-button {
