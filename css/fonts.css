@@ -26,12 +26,12 @@
 
 @font-face {
     font-family: "PhosphateFontInline";
-    src: url(../assets/fonts/phosphate-inline.ttf);
+    src: url(../assets/fonts/phosphate-inline.woff);
     font-weight: 400;
 }
 
 @font-face {
     font-family: "PhosphateFontSolid";
-    src: url(../assets/fonts/phosphate-solid.ttf);
+    src: url(../assets/fonts/phosphate-solid.woff);
     font-weight: 400;
 }
