@@ -132,6 +132,17 @@ body {
 
 .section-text {
 	padding: 50px;
+	opacity: 1;
+}
+
+.fade-in-left {
+	transform: translateX(-150px);
+	opacity: 0;
+}
+
+.fade-in-right {
+		transform: translateX(150px);
+		opacity: 0;
 }
 
 .section-image {
@@ -321,7 +332,19 @@ h1,h2,h3,h4,h5,h6,p {
 	font-size: 18px;
 	line-height: 150%;
 	margin-bottom: 20px;
+	transition: all 0.5s ease-in-out;
 }
+
+.fade-in-left {
+	transform: translateX(-150px);
+	opacity: 0;
+}
+
+.fade-in-right {
+		transform: translateX(150px);
+		opacity: 0;
+}
+
 
 .menu-title {
 	font-size: 42px;

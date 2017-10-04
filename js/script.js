@@ -119,6 +119,7 @@ for(var menuButton of menuButtons) {
       header.classList.add("section-1-background");
       header.classList.remove("section-2-background");
       header.classList.remove("section-3-background");
+
     } else {
       header.classList.remove("section-1-background");
     }
@@ -137,6 +138,43 @@ for(var menuButton of menuButtons) {
       header.classList.remove("section-2-background");
 
     }
+
+    // get the height of window
+    var windowHeight = window.innerHeight;
+
+    // if statements to remove fade-in-left or fade-in-right classes
+    if(scrollPosition >= sectionHeroHeight - windowHeight / 2) {
+
+      // declare variable for the section 1 text
+      var sectionOneText = document.querySelector(".section-1 .inner-section .section-text .section-paragraph");
+
+      // remove class
+      sectionOneText.classList.remove("fade-in-left")
+
+    }
+
+    // if statements to remove fade-in-left or fade-in-right classes
+    if(scrollPosition >= (sectionHeroHeight + sectionOneHeight) - (windowHeight / 2)) {
+
+      // declare variable for the section 1 text
+      var sectionTwoText = document.querySelector(".section-2 .inner-section .section-text .section-paragraph");
+
+      // remove class
+      sectionTwoText.classList.remove("fade-in-right");
+
+    }
+
+    // if statements to remove fade-in-left or fade-in-right classes
+    if(scrollPosition >= (sectionHeroHeight + sectionOneHeight + sectionTwoHeight) - (windowHeight / 2)) {
+
+      // declare variable for the section 1 text
+      var sectionThreeText = document.querySelector(".section-3 .inner-section .section-text .section-paragraph");
+
+      // remove class
+      sectionThreeText.classList.remove("fade-in-left");
+
+    }
+
 
 
 
