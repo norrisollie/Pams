@@ -175,10 +175,106 @@ for(var menuButton of menuButtons) {
 
     }
 
+  }
 
+var pageLinks = document.querySelectorAll(".page-links");
 
+// loop
+for(var pageLink of pageLinks) {
+
+  // add event listenrr
+  pageLink.addEventListener("click", pageLinkClick, false);
+
+}
+
+// function to run on click event
+function pageLinkClick(event) {
+
+  // retrieve target elements page dataset
+  var targetPage = event.currentTarget.dataset.page;
+
+  console.log(targetPage)
+
+  var sectionHero = document.querySelector(".section-hero");
+  var sectionOne = document.querySelector(".section-1");
+  var sectionTwo = document.querySelector(".section-2");
+  var sectionThree = document.querySelector(".section-3");
+
+  // retrieve height of elements
+  var sectionHeroHeight = sectionHero.offsetHeight;
+  var sectionOneHeight = sectionOne.offsetHeight;
+  var sectionTwoHeight = sectionTwo.offsetHeight;
+  var sectionThreeHeight = sectionThree.offsetHeight;
+
+  var heroAndOne = sectionHeroHeight + sectionOneHeight;
+
+  var windowScrollPosition = window.scrollY;
+
+  var scroll_source_object = {
+     y: windowScrollPosition
+  };
+
+  // if about clicked
+  if(targetPage === "about") {
+
+    TweenMax.to(scroll_source_object,1, {
+        y: sectionHeroHeight,
+        onUpdate: function() {
+            window.scrollTo(0, scroll_source_object.y);
+        },
+        ease: Power2.easeInOut
+    });
+
+  } else if(targetPage === "menu") {
+
+    TweenMax.to(scroll_source_object,1, {
+        y: sectionHeroHeight + sectionOneHeight,
+        onUpdate: function() {
+            window.scrollTo(0, scroll_source_object.y);
+        },
+        ease: Power2.easeInOut
+    });
+
+  } else if(targetPage === "findus") {
+
+    TweenMax.to(scroll_source_object,1, {
+        y: sectionHeroHeight + sectionOneHeight + sectionTwoHeight,
+        onUpdate: function() {
+            window.scrollTo(0, scroll_source_object.y);
+        },
+        ease: Power2.easeInOut
+    });
 
   }
+  else if(targetPage === "home") {
+
+    TweenMax.to(scroll_source_object,1, {
+        y: 0,
+        onUpdate: function() {
+            window.scrollTo(0, scroll_source_object.y);
+        },
+        ease: Power2.easeInOut
+    });
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
